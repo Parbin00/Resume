@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parbin Kabinur – Resume | B.Tech CSE Student, ADTU</title>
+  <meta name="description" content="Resume of Parbin Kabinur, B.Tech CSE 1st Year Student at Assam Down Town University (ADTU), aspiring software developer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --clay-purple:   #7c4dff;
+      --clay-pink:     #e91e8c;
+      --clay-blue:     #2196f3;
+      --clay-teal:     #00bcd4;
+      --clay-yellow:   #ffb300;
+      --clay-green:    #00c853;
+      --bg-from:       #0f0c29;
+      --bg-mid:        #302b63;
+      --bg-to:         #24243e;
+      --glass-bg:      rgba(255,255,255,0.07);
+      --glass-border:  rgba(255,255,255,0.18);
+      --text-light:    rgba(255,255,255,0.92);
+      --text-muted:    rgba(255,255,255,0.55);
+      --white:         #ffffff;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      min-height: 100vh;
+      padding: 48px 16px 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before {
+      width: 700px; height: 700px;
+      top: -200px; left: -200px;
+      background: radial-gradient(circle, rgba(124,77,255,0.25) 0%, transparent 70%);
+      animation: floatOrb 8s ease-in-out infinite alternate;
+    }
+    body::after {
+      width: 600px; height: 600px;
+      bottom: -150px; right: -150px;
+      background: radial-gradient(circle, rgba(233,30,140,0.2) 0%, transparent 70%);
+      animation: floatOrb 10s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes floatOrb {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, 40px) scale(1.1); }
+    }
+
+    .resume {
+      position: relative; z-index: 1;
+      width: 820px; max-width: 100%;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 36px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(124,77,255,0.25),
+        0 40px 100px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.18);
+      animation: slideUp 0.7s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(60px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .top-bar {
+      height: 6px;
+      background: linear-gradient(90deg,
+        #7c4dff, #e91e8c, #ff6d00, #ffb300, #00c853, #00bcd4, #2196f3, #7c4dff);
+      background-size: 200% 100%;
+      animation: rainbow 4s linear infinite;
+    }
+    @keyframes rainbow {
+      from { background-position: 0% 50%; }
+      to   { background-position: 200% 50%; }
+    }
+
+    .hero {
+      padding: 48px 52px 40px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse at 5% 50%, rgba(124,77,255,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse at 95% 20%, rgba(233,30,140,0.18) 0%, transparent 50%);
+    }
+
+    .photo-wrap { position: relative; flex-shrink: 0; z-index: 1; }
+    .photo-clay {
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      padding: 5px;
+      background: linear-gradient(145deg, #ff6eff, #7c4dff, #00bcd4);
+      box-shadow:
+        0 20px 60px rgba(124,77,255,0.5),
+        0 6px 20px rgba(0,0,0,0.4),
+        inset 0 -4px 12px rgba(0,0,0,0.2),
+        inset 0 4px 8px rgba(255,255,255,0.25);
+      animation: photoBounce 4s ease-in-out infinite;
+      transition: transform 0.3s ease;
+    }
+    .photo-clay:hover { transform: scale(1.05) rotate(2deg); }
+    @keyframes photoBounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-6px); }
+    }
+    .photo {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.9);
+      display: block;
+    }
+    .photo-badge {
+      position: absolute; bottom: 6px; right: -2px;
+      background: linear-gradient(135deg, #ffb300, #ff6d00);
+      color: white; font-size: 11px; font-weight: 800;
+      padding: 4px 12px; border-radius: 20px;
+      border: 2px solid rgba(255,255,255,0.5);
+      letter-spacing: 1px;
+      box-shadow: 0 4px 14px rgba(255,109,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+
+    .hero-text { flex: 1; position: relative; z-index: 1; }
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px; font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px; line-height: 1.1;
+      text-shadow: 0 0 40px rgba(124,77,255,0.6), 0 2px 12px rgba(0,0,0,0.4);
+    }
+    .hero-role {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin: 12px 0 22px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      color: rgba(255,255,255,0.9);
+      padding: 8px 20px; border-radius: 30px;
+      font-size: 14px; font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15);
+      letter-spacing: 0.4px;
+    }
+    .contact-strip { display: flex; flex-wrap: wrap; gap: 10px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      color: rgba(255,255,255,0.88);
+      padding: 7px 15px; border-radius: 22px;
+      font-size: 13px; font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.12);
+      transition: all 0.25s ease;
+      cursor: default;
+    }
+    .contact-item:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    .body { padding: 40px 52px 44px; }
+
+    .section { margin-bottom: 36px; }
+    .section-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px;
+    }
+    .section-icon {
+      width: 42px; height: 42px; border-radius: 14px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      box-shadow:
+        0 8px 24px rgba(0,0,0,0.3),
+        inset 0 2px 4px rgba(255,255,255,0.3),
+        inset 0 -2px 6px rgba(0,0,0,0.2);
+    }
+    .icon-purple { background: linear-gradient(145deg, #a371f7, #7c4dff); }
+    .icon-pink   { background: linear-gradient(145deg, #f472b6, #e91e8c); }
+    .icon-blue   { background: linear-gradient(145deg, #60a5fa, #2196f3); }
+    .icon-teal   { background: linear-gradient(145deg, #34d399, #00bcd4); }
+    .icon-yellow { background: linear-gradient(145deg, #fde047, #ffb300); }
+    .icon-green  { background: linear-gradient(145deg, #4ade80, #00c853); }
+    .icon-orange { background: linear-gradient(145deg, #fb923c, #ff6d00); }
+
+    .section-title {
+      font-size: 17px; font-weight: 800; color: var(--white);
+      letter-spacing: -0.2px;
+      text-shadow: 0 0 20px rgba(124,77,255,0.4);
+    }
+    .section-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.25), transparent);
+    }
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+      margin: 30px 0;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 20px;
+    }
+    .info-item {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 16px;
+      padding: 13px 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.12);
+      transition: all 0.25s ease;
+    }
+    .info-item:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(124,77,255,0.2), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    .info-label {
+      font-size: 10.5px; font-weight: 800; color: rgba(167,130,255,0.9);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;
+    }
+    .info-value { font-size: 14px; color: var(--text-light); font-weight: 600; }
+
+    .highlight-box {
+      background: rgba(124,77,255,0.12);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(124,77,255,0.3);
+      border-left: 4px solid #7c4dff;
+      border-radius: 0 18px 18px 0;
+      padding: 18px 22px;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.88);
+      font-size: 14.5px;
+      box-shadow: 0 4px 24px rgba(124,77,255,0.15), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .highlight-box strong { color: #c4a8ff; font-weight: 800; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 12px; }
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px; border-radius: 30px;
+      font-size: 13.5px; font-weight: 700;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      transition: all 0.25s ease;
+      cursor: default;
+      box-shadow:
+        0 6px 20px rgba(0,0,0,0.25),
+        inset 0 2px 4px rgba(255,255,255,0.2),
+        inset 0 -2px 6px rgba(0,0,0,0.15);
+    }
+    .tag:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow:
+        0 12px 32px rgba(0,0,0,0.3),
+        inset 0 2px 4px rgba(255,255,255,0.25),
+        inset 0 -2px 6px rgba(0,0,0,0.2);
+    }
+    .tag-lang {
+      background: linear-gradient(135deg, rgba(124,77,255,0.4), rgba(161,113,255,0.25));
+      color: #d0b8ff;
+    }
+    .tag-skill {
+      background: linear-gradient(135deg, rgba(233,30,140,0.35), rgba(244,114,182,0.2));
+      color: #f9a8d4;
+    }
+
+    .edu-timeline { display: flex; flex-direction: column; gap: 14px; }
+    .edu-card {
+      display: flex; align-items: flex-start; gap: 18px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px; padding: 18px 22px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+      transition: all 0.25s ease;
+    }
+    .edu-card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: linear-gradient(180deg, #7c4dff, #e91e8c);
+      border-radius: 4px 0 0 4px;
+    }
+    .edu-card:hover {
+      transform: translateX(6px);
+      background: rgba(255,255,255,0.1);
+      box-shadow: 0 10px 40px rgba(124,77,255,0.2), inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+    .edu-icon {
+      width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      box-shadow:
+        0 8px 24px rgba(0,0,0,0.3),
+        inset 0 2px 4px rgba(255,255,255,0.3),
+        inset 0 -3px 6px rgba(0,0,0,0.2);
+    }
+    .edu-info { flex: 1; }
+    .edu-degree { font-size: 15px; font-weight: 800; color: var(--white); }
+    .edu-school { font-size: 13px; color: var(--text-muted); margin: 4px 0; font-weight: 600; }
+    .edu-meta { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+    .edu-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(124,77,255,0.2);
+      backdrop-filter: blur(6px);
+      color: #c4a8ff; padding: 4px 12px; border-radius: 20px;
+      font-size: 12px; font-weight: 700;
+      border: 1px solid rgba(124,77,255,0.3);
+      box-shadow: 0 2px 10px rgba(124,77,255,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .edu-badge.year {
+      background: rgba(233,30,140,0.2);
+      color: #f9a8d4;
+      border-color: rgba(233,30,140,0.3);
+      box-shadow: 0 2px 10px rgba(233,30,140,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .achievement-item {
+      display: flex; align-items: center; gap: 16px;
+      background: linear-gradient(135deg, rgba(255,179,0,0.15), rgba(255,109,0,0.1));
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,179,0,0.25);
+      border-radius: 20px; padding: 16px 22px;
+      font-size: 14.5px; color: #fde68a; font-weight: 600;
+      box-shadow:
+        0 6px 28px rgba(255,179,0,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.1),
+        inset 0 -2px 8px rgba(0,0,0,0.1);
+    }
+    .achievement-icon { font-size: 30px; flex-shrink: 0; filter: drop-shadow(0 4px 8px rgba(255,179,0,0.4)); }
+
+    .declaration-box {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px; padding: 22px 26px;
+      font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.82);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .declaration-sig {
+      margin-top: 24px;
+      display: flex; justify-content: space-between;
+      align-items: flex-end; flex-wrap: wrap; gap: 14px;
+    }
+    .sig-meta { font-size: 13px; color: var(--text-muted); line-height: 1.9; font-weight: 600; }
+    .sig-meta strong { color: rgba(255,255,255,0.75); }
+    .sig-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px; font-weight: 700; color: #c4a8ff;
+      border-top: 2px solid rgba(124,77,255,0.5); padding-top: 8px;
+      text-shadow: 0 0 20px rgba(124,77,255,0.5);
+    }
+
+    footer {
+      text-align: center; padding: 18px 40px 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 12.5px; color: var(--text-muted); font-weight: 600;
+      background: rgba(0,0,0,0.15);
+      backdrop-filter: blur(10px);
+    }
+    footer span { color: #a371f7; font-weight: 800; }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .resume { box-shadow: none; border-radius: 0; animation: none; background: #fff; backdrop-filter: none; border: none; }
+      body::before, body::after { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .hero { flex-direction: column; text-align: center; padding: 36px 28px 32px; }
+      .contact-strip { justify-content: center; }
+      .body { padding: 32px 28px; }
+      .info-grid { grid-template-columns: 1fr; }
+      .hero-text h1 { font-size: 32px; }
+      .declaration-sig { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="resume">
+    <div class="top-bar"></div>
+
+    <!-- HERO HEADER -->
+    <div class="hero">
+      <div class="hero-glow"></div>
+
+      <div class="photo-wrap">
+        <div class="photo-clay">
+          <img
+            class="photo"
+            src="photo.jpg"
+            alt="Photo of Parbin Kabinur"
+            onerror="this.src='https://ui-avatars.com/api/?name=Parbin+Kabinur&size=400&background=7c4dff&color=fff&bold=true&font-size=0.4'"
+          >
+        </div>
+        <span class="photo-badge">CSE</span>
+      </div>
+
+      <div class="hero-text">
+        <h1>Parbin Kabinur</h1>
+        <div class="hero-role">🎓 B.Tech CSE &nbsp;·&nbsp; 1st Year &nbsp;|&nbsp; ADTU</div>
+        <div class="contact-strip">
+          <div class="contact-item">📧 parbinkabinur2024@gmail.com</div>
+          <div class="contact-item">📞 6002786139</div>
+          <div class="contact-item">📍 Panikhaiti, Assam, India</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="body">
+
+      <!-- Personal Information -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-icon icon-purple">👤</div>
+          <div class="section-title">Personal Information</div>
+          <div class="section-line"></div>
+        </div>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">Father's Name</div>
+            <div class="info-value">Mr. Abul Kayum</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Mother's Name</div>
+            <div class="info-value">Mrs. Shahanaj Parbin</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Date of Birth</div>
+            <div class="info-value">1 March 2009</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Age</div>
+            <div class="info-value">17 Years</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Gender</div>
+            <div class="info-value">Female</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Blood Group</div>
+            <div class="info-value">B+</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Nationality</div>
+            <div class="info-value">Indian</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Category</div>
+            <div class="info-value">General</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Current Role -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-icon icon-pink">🚀</div>
+          <div class="section-title">Current Role</div>
+          <div class="section-line"></div>
+        </div>
+        <div class="highlight-box">
+          <strong>Currently Pursuing:</strong> B.Tech in Computer Science &amp; Engineering &ndash; 1st Year at
+          Assam Down Town University (ADTU), Guwahati<br>
+          <strong>Aspiration:</strong> Student &amp; Aspiring Software Developer | Learning Web Development
+          and Programming Fundamentals
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Education -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-icon icon-blue">🎓</div>
+          <div class="section-title">Education</div>
+          <div class="section-line"></div>
+        </div>
+        <div class="edu-timeline">
+          <div class="edu-card">
+            <div class="edu-icon icon-purple">🏛️</div>
+            <div class="edu-info">
+              <div class="edu-degree">B.Tech &ndash; Computer Science &amp; Engineering</div>
+              <div class="edu-school">Assam Down Town University (ADTU), Guwahati</div>
+              <div class="edu-meta">
+                <span class="edu-badge year">📅 2026 &ndash; 2030</span>
+                <span class="edu-badge">Currently Pursuing</span>
+              </div>
+            </div>
+          </div>
+          <div class="edu-card">
+            <div class="edu-icon icon-teal">📚</div>
+            <div class="edu-info">
+              <div class="edu-degree">Higher Secondary (12th) &ndash; HS</div>
+              <div class="edu-school">Shrimantra Shankar Dev High School</div>
+              <div class="edu-meta">
+                <span class="edu-badge year">📅 2024</span>
+                <span class="edu-badge">71%</span>
+              </div>
+            </div>
+          </div>
+          <div class="edu-card">
+            <div class="edu-icon icon-green">📖</div>
+            <div class="edu-info">
+              <div class="edu-degree">Secondary (10th) &ndash; HSLC</div>
+              <div class="edu-school">Anundoram Senior Secondary School</div>
+              <div class="edu-meta">
+                <span class="edu-badge year">📅 2022</span>
+                <span class="edu-badge">68%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Achievements -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-icon icon-yellow">🏆</div>
+          <div class="section-title">Achievements</div>
+          <div class="section-line"></div>
+        </div>
+        <div class="achievement-item">
+          <div class="achievement-icon">🥇</div>
+          <div>Secured <strong>1st Division</strong> in both HSLC (10th) &amp; HS (12th) Board Examinations</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Technical Skills -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-icon icon-pink">💻</div>
+          <div class="section-title">Technical Skills</div>
+          <div class="section-line"></div>
+        </div>
+        <div class="tags">
+          <span class="tag tag-skill">💻 HTML</span>
+          <span class="tag tag-skill">⚙️ C Programming</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Languages Known -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-icon icon-teal">🌐</div>
+          <div class="section-title">Languages Known</div>
+          <div class="section-line"></div>
+        </div>
+        <div class="tags">
+          <span class="tag tag-lang">🗣️ Assamese &mdash; Native</span>
+          <span class="tag tag-lang">🗣️ English &mdash; Fluent</span>
+          <span class="tag tag-lang">🗣️ Hindi &mdash; Fluent</span>
+          <span class="tag tag-lang">🗣️ Bengali &mdash; Basic</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Declaration -->
+      <div class="section" style="margin-bottom:0;">
+        <div class="section-header">
+          <div class="section-icon icon-purple">📋</div>
+          <div class="section-title">Declaration</div>
+          <div class="section-line"></div>
+        </div>
+        <div class="declaration-box">
+          I hereby declare that all the information provided above is true, complete, and correct to the
+          best of my knowledge and belief.
+          <div class="declaration-sig">
+            <div class="sig-meta">
+              <strong>Date:</strong> 28 September 2026<br>
+              <strong>Place:</strong> Panikhaiti, Assam
+            </div>
+            <div>
+              <div class="sig-name">Parbin Kabinur</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      Student Resume &nbsp;|&nbsp; <span>Parbin Kabinur</span> &nbsp;|&nbsp; B.Tech CSE &middot; ADTU &nbsp;|&nbsp; &copy; 2026
+    </footer>
+  </div>
+</body>
+</html>

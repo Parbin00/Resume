@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – Parbin Kabinur Portfolio</title>
+  <meta name="description" content="Secure login to view Parbin Kabinur's resume and portfolio.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --purple-deep: #4c2d8f;
+      --purple-mid: #6d44c6;
+      --purple-light: #9b77e8;
+      --pink: #d63faf;
+      --pink-light: #f472b6;
+    }
+
+    /* ══════════ BASE ══════════ */
+    html,
+    body {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+    }
+
+    /* ══════════ SCENE (animated gradient bg) ══════════ */
+    .scene {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(145deg, #0f0520, #1e0751, #3b0f8f, #6d28d9, #9d174d, #be185d);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* ── Floating orbs ── */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.45;
+      animation: float linear infinite;
+      pointer-events: none;
+    }
+
+    .orb-1 {
+      width: 520px;
+      height: 520px;
+      top: -140px;
+      left: -160px;
+      background: radial-gradient(circle, #7c3aed, transparent 70%);
+      animation-duration: 20s;
+    }
+
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      bottom: -120px;
+      right: -100px;
+      background: radial-gradient(circle, #db2777, transparent 70%);
+      animation-duration: 16s;
+      animation-direction: reverse;
+    }
+
+    .orb-3 {
+      width: 300px;
+      height: 300px;
+      top: 40%;
+      left: 60%;
+      background: radial-gradient(circle, #2563eb, transparent 70%);
+      animation-duration: 24s;
+    }
+
+    .orb-4 {
+      width: 200px;
+      height: 200px;
+      top: 20%;
+      right: 15%;
+      background: radial-gradient(circle, #7c3aed, transparent 70%);
+      animation-duration: 18s;
+      animation-direction: reverse;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0px, 0px) scale(1);
+      }
+
+      33% {
+        transform: translate(30px, -50px) scale(1.05);
+      }
+
+      66% {
+        transform: translate(-20px, 30px) scale(0.95);
+      }
+
+      100% {
+        transform: translate(0px, 0px) scale(1);
+      }
+    }
+
+    /* ── Particle stars ── */
+    .stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.7);
+      animation: twinkle ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from {
+        opacity: 0.1;
+        transform: scale(0.8);
+      }
+
+      to {
+        opacity: 0.9;
+        transform: scale(1.2);
+      }
+    }
+
+    /* ══════════ GLASS CARD ══════════ */
+    .glass-card {
+      position: relative;
+      z-index: 10;
+      width: 440px;
+      max-width: calc(100vw - 32px);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 28px;
+      padding: 48px 44px 40px;
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+        0 1px 0 rgba(255, 255, 255, 0.25) inset;
+      animation: cardIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(60px) scale(0.92);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* ── Top shimmer line ── */
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+      border-radius: 1px;
+    }
+
+    /* ── Avatar / Logo ── */
+    .avatar-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .avatar-ring {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(145deg, #f472b6, #a855f7, #818cf8);
+      box-shadow: 0 8px 32px rgba(168, 85, 247, 0.5), 0 0 0 6px rgba(255, 255, 255, 0.06);
+      margin-bottom: 16px;
+      animation: pulse 3s ease infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 8px 32px rgba(168, 85, 247, 0.5), 0 0 0 6px rgba(255, 255, 255, 0.06);
+      }
+
+      50% {
+        box-shadow: 0 8px 48px rgba(168, 85, 247, 0.8), 0 0 0 10px rgba(255, 255, 255, 0.10);
+      }
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.9);
+      display: block;
+    }
+
+    .avatar-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.3px;
+      text-align: center;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .avatar-sub {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      margin-top: 4px;
+      letter-spacing: 0.4px;
+      text-align: center;
+    }
+
+    /* ── Form ── */
+    .login-label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-ico {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      pointer-events: none;
+      filter: opacity(0.6);
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 14px 16px 14px 46px;
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 14px;
+      color: #fff;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+      backdrop-filter: blur(6px);
+    }
+
+    .login-input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .login-input:focus {
+      border-color: rgba(168, 85, 247, 0.7);
+      background: rgba(255, 255, 255, 0.14);
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2), 0 4px 20px rgba(168, 85, 247, 0.15);
+    }
+
+    /* Toggle password visibility */
+    .eye-btn {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.4);
+      transition: color 0.2s;
+      padding: 4px;
+    }
+
+    .eye-btn:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* ── Error message ── */
+    .error-msg {
+      display: none;
+      margin-top: 14px;
+      background: rgba(239, 68, 68, 0.18);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: #fca5a5;
+      font-size: 13.5px;
+      text-align: center;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-8px);
+      }
+
+      75% {
+        transform: translateX(8px);
+      }
+    }
+
+    /* ── Login button ── */
+    .login-btn {
+      margin-top: 24px;
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #7c3aed, #a855f7, #ec4899);
+      background-size: 200% 200%;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      color: #fff;
+      font-size: 15.5px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.3px;
+      box-shadow: 0 8px 30px rgba(168, 85, 247, 0.45);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    .login-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0);
+      transition: background 0.2s;
+    }
+
+    .login-btn:hover::after {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(168, 85, 247, 0.6);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .login-btn.loading {
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    /* ── Hint ── */
+    .hint {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 0.3px;
+    }
+
+    .hint kbd {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+      padding: 1px 7px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ══════════ FULL-SCREEN UNLOCK TRANSITION ══════════ */
+    .unlock-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: linear-gradient(145deg, #0f0520, #1e0751, #3b0f8f);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .unlock-overlay.active {
+      display: flex;
+      animation: overlayIn 0.4s ease both;
+    }
+
+    @keyframes overlayIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Spinning ring */
+    .unlock-ring {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top: 3px solid #a855f7;
+      border-right: 3px solid #ec4899;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Checkmark reveal */
+    .unlock-check {
+      display: none;
+      font-size: 60px;
+      animation: popIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0) rotate(-20deg);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    .unlock-text {
+      font-size: 18px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: 0.5px;
+      animation: fadeText 0.5s ease 0.2s both;
+    }
+
+    .unlock-sub {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.4);
+      animation: fadeText 0.5s ease 0.4s both;
+    }
+
+    @keyframes fadeText {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Progress bar */
+    .unlock-bar-wrap {
+      width: 220px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .unlock-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #7c3aed, #ec4899);
+      border-radius: 4px;
+      transition: width 1.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ══════════ IFRAME REVEAL ══════════ */
+    .resume-frame-wrap {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: #0f0520;
+    }
+
+    .resume-frame-wrap.active {
+      display: block;
+      animation: frameIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes frameIn {
+      from {
+        opacity: 0;
+        transform: scale(0.96) translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* ── Top Bar Actions ── */
+    .top-actions {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: flex-end;
+      pointer-events: none;
+    }
+
+    .top-actions.active {
+      display: flex;
+      animation: navIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes navIn {
+      from {
+        opacity: 0;
+        transform: translateY(-12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .action-btn {
+      pointer-events: auto;
+      background: rgba(15, 5, 32, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .action-btn:hover {
+      background: rgba(124, 58, 237, 0.9);
+      border-color: rgba(255, 255, 255, 0.45);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(124, 58, 237, 0.45);
+    }
+
+    .action-btn:active {
+      transform: translateY(0);
+    }
+
+    .resume-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ SCENE ═══ -->
+  <div class="scene" id="scene">
+
+    <!-- Animated orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+
+    <!-- Particle stars (generated by JS) -->
+    <div class="stars" id="stars"></div>
+
+    <!-- ═══ GLASS LOGIN CARD ═══ -->
+    <div class="glass-card" id="loginCard">
+
+      <!-- Avatar -->
+      <div class="avatar-wrap">
+        <div class="avatar-ring">
+          <img class="avatar-img" src="photo.jpg" alt="Parbin Kabinur"
+            onerror="this.src='https://ui-avatars.com/api/?name=Parbin+Kabinur&size=200&background=7c4dff&color=fff&bold=true'">
+        </div>
+        <div class="avatar-name">Parbin Kabinur</div>
+        <div class="avatar-sub">B.Tech CSE · ADTU · Resume Portal</div>
+      </div>
+
+      <!-- Form -->
+      <form id="loginForm" autocomplete="off" onsubmit="event.preventDefault(); attemptLogin();">
+
+        <label class="login-label" for="username">Username</label>
+        <div class="input-wrap">
+          <span class="input-ico">👤</span>
+          <input id="username" class="login-input" type="text" placeholder="Enter username" required
+            autocomplete="off" spellcheck="false">
+        </div>
+
+        <label class="login-label" for="password">Password</label>
+        <div class="input-wrap">
+          <span class="input-ico">🔒</span>
+          <input id="password" class="login-input" type="password" placeholder="Enter password"
+            required autocomplete="new-password">
+          <button type="button" class="eye-btn" id="togglePasswordBtn" onclick="togglePassword()"
+            title="Toggle password visibility" aria-label="Show or hide password">👁️</button>
+        </div>
+
+        <div class="error-msg" id="errorMsg">
+          ⚠️ Invalid username or password. Please try again!
+        </div>
+
+        <button class="login-btn" id="loginBtn" type="submit">
+          ✨&nbsp; View Resume
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══ UNLOCK OVERLAY ═══ -->
+  <div class="unlock-overlay" id="unlockOverlay">
+    <div class="unlock-ring" id="unlockRing"></div>
+    <div class="unlock-check" id="unlockCheck">&#9989;</div>
+    <div class="unlock-text" id="unlockText">Verifying credentials…</div>
+    <div class="unlock-sub" id="unlockSub">Please wait</div>
+    <div class="unlock-bar-wrap">
+      <div class="unlock-bar" id="unlockBar"></div>
+    </div>
+  </div>
+
+  <!-- ═══ RESUME IFRAME ═══ -->
+  <div class="resume-frame-wrap" id="resumeWrap">
+    <iframe class="resume-iframe" id="resumeFrame" src="" title="Parbin Kabinur Resume"></iframe>
+  </div>
+
+  <!-- Top Bar Actions (visible after login) -->
+  <div class="top-actions" id="topActions">
+    <button class="action-btn" id="backBtn" onclick="goBack()" title="Return to login">
+      Logout &#8594;
+    </button>
+  </div>
+
+  <script>
+    /* ─── Generate star particles ─── */
+    (function generateStars() {
+      const container = document.getElementById('stars');
+      if (!container) return;
+      const count = 80;
+      for (let i = 0; i < count; i++) {
+        const s = document.createElement('div');
+        s.className = 'star';
+        const size = Math.random() * 2.5 + 0.5;
+        s.style.cssText = `
+          width: ${size}px; height: ${size}px;
+          top: ${Math.random() * 100}%;
+          left: ${Math.random() * 100}%;
+          animation-duration: ${Math.random() * 3 + 2}s;
+          animation-delay: ${Math.random() * 4}s;
+        `;
+        container.appendChild(s);
+      }
+    })();
+
+    /* ─── Credentials ─── */
+    const VALID_USER = 'parbin';
+    const VALID_PASS = 'adtu2026';
+
+    /* ─── Toggle password visibility ─── */
+    function togglePassword() {
+      const pwd = document.getElementById('password');
+      const btn = document.getElementById('togglePasswordBtn');
+      if (!pwd || !btn) return;
+      if (pwd.type === 'password') {
+        pwd.type = 'text';
+        btn.textContent = '🙈';
+        btn.setAttribute('aria-label', 'Hide password');
+      } else {
+        pwd.type = 'password';
+        btn.textContent = '👁️';
+        btn.setAttribute('aria-label', 'Show password');
+      }
+    }
+
+    /* ─── Clear inputs on load ─── */
+    window.addEventListener('DOMContentLoaded', () => {
+      const user = document.getElementById('username');
+      const pass = document.getElementById('password');
+      if (user) user.value = '';
+      if (pass) pass.value = '';
+    });
+
+    /* ─── Enter key shortcut ─── */
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const wrap = document.getElementById('resumeWrap');
+        if (!wrap || !wrap.classList.contains('active')) {
+          attemptLogin();
+        }
+      }
+    });
+
+    /* ─── Login logic ─── */
+    function attemptLogin() {
+      const userInput = document.getElementById('username');
+      const passInput = document.getElementById('password');
+      const btn = document.getElementById('loginBtn');
+      const err = document.getElementById('errorMsg');
+
+      if (!userInput || !passInput || !btn) return;
+
+      const user = userInput.value.trim().toLowerCase();
+      const pass = passInput.value;
+
+      if (err) err.style.display = 'none';
+
+      if (user === VALID_USER && pass === VALID_PASS) {
+        btn.classList.add('loading');
+        btn.innerHTML = '⏳&nbsp; Unlocking…';
+        startUnlockSequence();
+      } else {
+        if (err) {
+          err.style.display = 'block';
+          err.style.animation = 'none';
+          // Re-trigger shake
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              err.style.animation = 'shake 0.4s ease';
+            });
+          });
+        }
+        passInput.value = '';
+        passInput.focus();
+      }
+    }
+
+    /* ─── Cinematic unlock sequence ─── */
+    function startUnlockSequence() {
+      const overlay = document.getElementById('unlockOverlay');
+      const ring = document.getElementById('unlockRing');
+      const check = document.getElementById('unlockCheck');
+      const text = document.getElementById('unlockText');
+      const sub = document.getElementById('unlockSub');
+      const bar = document.getElementById('unlockBar');
+      const scene = document.getElementById('scene');
+
+      if (!overlay) return;
+
+      // Reset overlay elements
+      overlay.style.display = 'flex';
+      overlay.classList.add('active');
+      if (ring) ring.style.display = 'block';
+      if (check) check.style.display = 'none';
+      if (bar) bar.style.width = '0%';
+      if (text) text.textContent = 'Verifying credentials…';
+      if (sub) sub.textContent = 'Please wait';
+
+      // Phase 1 — progress bar
+      setTimeout(() => {
+        if (bar) bar.style.width = '100%';
+      }, 50);
+
+      // Phase 2 (900ms) — update text
+      setTimeout(() => {
+        if (text) text.textContent = '✅ Access Granted!';
+        if (sub) sub.textContent = 'Loading your resume…';
+      }, 900);
+
+      // Phase 3 (1300ms) — swap ring → checkmark
+      setTimeout(() => {
+        if (ring) ring.style.display = 'none';
+        if (check) check.style.display = 'block';
+      }, 1300);
+
+      // Phase 4 (2300ms) — reveal resume iframe
+      setTimeout(() => {
+        overlay.classList.remove('active');
+        overlay.style.display = 'none';
+        if (scene) scene.style.display = 'none';
+
+        const wrap = document.getElementById('resumeWrap');
+        const frame = document.getElementById('resumeFrame');
+        const actions = document.getElementById('topActions');
+
+        if (frame) frame.src = 'Parbin%20kabinur.html';
+        if (wrap) {
+          wrap.style.display = 'block';
+          wrap.classList.add('active');
+        }
+        if (actions) actions.classList.add('active');
+      }, 2300);
+    }
+
+    /* ─── Logout / Go back ─── */
+    function goBack() {
+      const wrap = document.getElementById('resumeWrap');
+      const scene = document.getElementById('scene');
+      const actions = document.getElementById('topActions');
+      const btn = document.getElementById('loginBtn');
+      const err = document.getElementById('errorMsg');
+      const frame = document.getElementById('resumeFrame');
+      const overlay = document.getElementById('unlockOverlay');
+
+      if (wrap) {
+        wrap.classList.remove('active');
+        wrap.style.display = 'none';
+      }
+      if (actions) actions.classList.remove('active');
+
+      // Reset iframe src
+      if (frame) frame.src = '';
+
+      // Reset overlay
+      if (overlay) {
+        overlay.classList.remove('active');
+        overlay.style.display = 'none';
+      }
+
+      // Restore scene
+      if (scene) scene.style.display = 'flex';
+
+      // Reset form fields
+      const userInput = document.getElementById('username');
+      const passInput = document.getElementById('password');
+      if (userInput) userInput.value = '';
+      if (passInput) passInput.value = '';
+
+      // Reset login form button & error
+      if (btn) {
+        btn.classList.remove('loading');
+        btn.innerHTML = '✨&nbsp; View Resume';
+      }
+      if (err) err.style.display = 'none';
+
+      // Small nudge to re-trigger card animation
+      const card = document.getElementById('loginCard');
+      if (card) {
+        card.style.animation = 'none';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            card.style.animation = 'cardIn 0.7s cubic-bezier(0.22,1,0.36,1) both';
+          });
+        });
+      }
+    }
+  </script>
+</body>
+
+</html>
